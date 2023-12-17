@@ -1,21 +1,48 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Booking Site</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+</head>
+<body>
+    
+    <div class="container"> <!-- Container for all other content -->
+    <div class="bgImg"></div> <!-- Background image div -->
 
-<html>
-	<head>
-		<title> My Web Page </title>
-		<link rel='stylesheet' type='text/css' href="{{ url_for('static',filename='styles/15_11_2021.css') }}" />
-	</head>
+        <header >
+            <nav >
+                <div class="navbar">
+                    <a href="{{ url_for('flight') }}" class="navButton">Flight</a>
+                    <a href="#" class="navButton">Check-in</a>
+                    <a href="#" class="navButton">Flight status</a>
+                </div>
+            </nav>
+            <div class="hero margin ">
+                <div class="search-area">
+                    <h2>Where do you want to explore?</h2>
+                    <form class="search-form">
+                        <div class="form-group">
+                            <label for="from">Flight Number</label>
+                            <input type="text" id="from" name="from" >
+                        </div>
+                       
+                        <div class="groupOne">
+                            <button type="submit" class="submitButton">Search flights</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </header>
 
-
-	<body>
-		<p>
+        <p>
 			<ul>
 				{% for item in data %}
 				<li>{{item}}</li>
 				{% endfor %}
 			</ul>
 		<p\>
-	</body>
-
+    </div>
+</body>
 </html>

@@ -1,0 +1,142 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #252525; /* A deep green/blue shade inspired by the image */
+    color: #263A4C; /* A light, sandy color for text, inspired by the lighter earth tones */
+}
+
+.container {
+    padding: 16px;
+    min-height: 100%;
+    position: relative;
+}
+
+.bgImg {
+    background-image: url('../Image/bg.png'); /* Replace with the actual image path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    min-height: 300px; /* Adjusted to ensure it covers the area you want */
+}
+
+.navButton {
+    background-color: #DFDDA3; /* A muted green shade from the foliage in the image */
+    border-radius: 8px;
+    color: #263A4C;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.navButton:hover {
+    background-color: #4a7c5f; /* A slightly lighter green for hover effect */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #263A4C; /* Light text for readability */
+    font-weight: bold;
+}
+
+
+
+.search-area {
+    text-align: center;
+    margin: 0 auto;
+}
+
+
+
+.search-form input {
+    background: #DFDDA3; /* Same as the nav buttons for consistency */
+    color: #263A4C; /* Text color */
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px;
+}
+.margin{
+    padding:16px;
+    background-color: rgba(27,116,127,0.95    );
+
+    margin: 125px;
+    border-radius: 16px;
+    height: 350px;
+}
+
+.search-form button {
+    background: #DFDDA3; /* Same as the nav buttons for consistency */
+    color: #263A4C; /* Text color */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+   border-radius: 8px;
+
+}
+
+.search-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:1rem;
+}
+
+
+.navbar{
+    display: flex;
+    padding: 5px;
+    gap: 1rem;
+    align-items: end;
+    justify-content: end;
+    
+}
+
+.form-group{
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    height: 4rem;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #263A4C; /* A darker shade of the text color for a subtle shadow effect */
+
+}
+
+header{
+    position: relative;
+    z-index: 2;
+}
+label{
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-left: 5px;
+}
+.groupOne{
+   height: 4.5rem;
+}
+.submitButton{
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
