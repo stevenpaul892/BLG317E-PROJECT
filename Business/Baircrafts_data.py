@@ -6,7 +6,7 @@ def Search():
         cursor=con.cursor()
         cursor.execute("PRAGMA foreign_keys = ON")
         
-        query=f""" SELECT * FROM aircrafts_data"""
+        query=f""" SELECT * FROM aircrafts_data """
 
         cursor.execute(query)
 

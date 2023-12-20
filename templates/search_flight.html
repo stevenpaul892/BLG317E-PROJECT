@@ -1,0 +1,40 @@
+{% extends 'master_page.html' %}
+
+
+
+{% block content %}
+
+<h2>Where do you want to explore?</h2>
+<form action="/searched_flights" class="search-form" method="post">
+    <div class="form-group">
+        <select name="dropdownFrom">
+            {% for option in optionsFrom %}
+                <option value="{{ option[0] }}">{{ option[1] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <select name="dropdownWhere">
+            {% for option in optionsWhere %}
+                <option value="{{ option[0] }}">{{ option[1] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <select name="dropdownDates">
+            {% for option in optionsDates %}
+                <option value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="passengers">Passengers</label>
+        <input type="number" id="passengers" name="passengers" min="1" value="1">
+    </div>
+    <div class="groupOne">
+        <button type="submit" class="submitButton">Search flights</button>
+    </div>
+</form>
+
+{% endblock%}
+

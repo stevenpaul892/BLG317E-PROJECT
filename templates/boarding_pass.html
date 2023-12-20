@@ -1,0 +1,9 @@
+
+<!-- This is just for testing the seatlist -->
+{% extends 'master_page.html' %}
+
+{% block content %}
+    {% for seat in seats %}
+        <p>{{ seat }}</p>
+    {% endfor %}
+{% endblock%}

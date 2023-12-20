@@ -1,0 +1,13 @@
+{% extends 'master_page.html' %}
+
+
+{% block content %}
+<form action="/buy_ticket" class="search-form" method="post">
+    <div class="form-group">
+        {% for flight in flights %}
+        <p>{{ flight[4] }} {{ flight[5] }} {{ flight[2] }} {{ flight[3] }}</p> <input type="submit" text="BUY" name="flight_id" value="{{ flight[0] }}"/>
+        {% endfor %}
+    </div>
+</form>
+{% endblock%}
+
