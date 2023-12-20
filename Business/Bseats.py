@@ -15,9 +15,10 @@ def Search():
         albums = []
 
         for row in data:
-            temp = []
-            for value in row:
-                temp.append(value)
+            temp = {}
+            keys = row.keys()
+            for key in keys:
+                temp[key] = row[key]
             albums.append(temp)
 
         return albums

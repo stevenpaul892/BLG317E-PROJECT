@@ -6,7 +6,7 @@ from flask import Flask, render_template, request, redirect
 import sys
 
 sys.path.append("../")
-from Business import Baircrafts_data, Bflights, Bseats
+from Business import Baircrafts_data, Bairports_data, Bboarding_passes, Bbooking, Bflights, Bseats, Bticket_flights, Btickets
 
 
 # Flask constructor takes the name of
@@ -25,8 +25,8 @@ def index():
 
 @app.route("/search_flight")
 def search_flight():
-    cities = Bflights.get_cities()
-
+    cities = Bairports_data.get_cities()
+    print(cities)
     return render_template(
         "search_flight.html", optionsFrom=cities, optionsWhere=cities, optionsDates=[]
     )
@@ -85,9 +85,18 @@ def show_boarding_pass_error():
 ###############################################################################################
 
 
-@app.route("/flight_status")
+@app.route("/check_flight_status")
+def check_flight_status():
+    return render_template("check_flight_status.html")
+
+@app.route("/flight_status", methods=['POST'])
 def flight_status():
-    return render_template("flight_status.html")
+    ticket_no = request.form["ticket_no"]
+
+    selected_aircraft = Baircrafts_data.flight_status_search(ticket_no)
+    print(ticket_no)
+    print(selected_aircraft)
+    return render_template("flight_status.html", aircraft=selected_aircraft)
 
 
 @app.route("/flight_cancel")
