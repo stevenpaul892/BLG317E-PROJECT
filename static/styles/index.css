@@ -140,3 +140,21 @@ label{
     height: 100%;
     width: 100%;
 }
+
+#errorRedirect{
+    color: red;
+    font-size: 1.2rem;
+    background-color: #DFDDA3; /* Same as the nav buttons for consistency */
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    padding: 13px 10px;
+}
+.errorContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    justify-content: center;
+    align-items: center;
+}
