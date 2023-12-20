@@ -22,24 +22,7 @@ def get_cities():
         return cities
     
 def get_dates():
-    with sql.connect("travel.db") as con:
-        con.row_factory = sql.Row
-        cursor=con.cursor()
-        cursor.execute("PRAGMA foreign_keys = ON")
-        
-        query=f""" SELECT airport_code, city FROM airports_data"""
-
-        cursor.execute(query)
-        data = cursor.fetchall()
-        cities = []
-
-        for row in data:
-            temp = [row[0]]    
-            parsed_data = json.loads(row[1])
-            temp.append(parsed_data['en'])
-            cities.append(temp)
-            
-        return cities
+    pass
 
 def search_flights(From, Where, Date):
     with sql.connect("travel.db") as con:

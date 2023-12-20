@@ -1,5 +1,30 @@
-{% extends 'master_page.html' %}
+{% extends "master_page.html" %}
 
 {% block content %}
-<p>{{ flight_id }}</p>
-{% endblock%}
+    <div class="payment-form-container">
+        <form action="/show_ticket" method="post" class="payment-form">
+            <div class="form-group">
+                <label for="name_surname">ID Number:</label>
+                <input type="text" id="ID_number" name="ID_number" required>
+            </div>
+            <div class="form-group">
+                <label for="name_surname">Name and Surname:</label>
+                <input type="text" id="name_surname" name="name_surname" required>
+            </div>
+            <div class="form-group">
+                <label for="expiration_date">Expiration Date:</label>
+                <input type="text" id="expiration_date" name="expiration_date" required>
+            </div>
+            <div class="form-group">
+                <label for="credit_card_number">Credit Card Number:</label>
+                <input type="text" id="credit_card_number" name="credit_card_number" required>
+            </div>
+            <div class="form-group">
+                <label for="card_cvv">CVV:</label>
+                <input type="text" id="card_cvv" name="card_cvv" required>
+            </div>
+            <button type="submit" class="submitButton">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+

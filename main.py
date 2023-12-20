@@ -18,10 +18,9 @@ app = Flask(__name__)
 # the associated function.
 
 
-@app.route("/")
+@app.route("/") #redirects user to search flights page as default page
 def index():
     return redirect('/search_flight')
-
 
 @app.route("/search_flight")
 def search_flight():
@@ -43,18 +42,51 @@ def buy_ticket():
     selected_flight_id = request.form['flight_id']
     return render_template("buy_ticket.html", flight_id=selected_flight_id)
 
+@app.route("/show_ticket", methods=['POST'])
+def show_ticket():
+    
+    return render_template("show_ticket.html")
+
+@app.route("/show_ticket_error", methods=['POST'])
+def show_ticket_error():
+    
+    return render_template("show_ticket_error.html")
+
+##############################################################################################
+
 @app.route("/check_in")
 def check_in():
     return render_template("check_in.html")
 
-@app.route("/boarding_pass")
+@app.route("/boarding_pass") 
 def boarding_pass():
     selected_seats = Bseats.Search()
     return render_template("boarding_pass.html", seats = selected_seats)
 
+@app.route("/show_boarding_pass") 
+def show_boarding_pass():
+
+    return render_template("show_boarding_pass.html")
+
+@app.route("/show_boarding_pass_error")
+def show_boarding_pass_error(): 
+    
+    return render_template("show_boarding_pass_error.html")
+
+###############################################################################################
+
 @app.route("/flight_status")
 def flight_status():
     return render_template("flight_status.html")
+
+@app.route("/flight_cancel") 
+def flight_cancel():
+    return render_template("flight_cancel.html")
+
+@app.route("/flight_cancel_error") 
+def flight_cancel_error():
+    return render_template("flight_cancel_error.html")
+
 
 
 # main driver function
