@@ -14,8 +14,21 @@
 <p class="noFlight">NOT CHECKED IN YET</p>
 {% endif %}
 
+<table class="table">
+    
+    <tr>
+        <th>Scheduled departure:</th>
+        <td> {{ flight['scheduled_departure'] }}</td>
+    </tr>
+    <tr>
+        <th>Departure airport:</th>
+        <td>{{ flight['departure_airport']  }}</td>
+    </tr>
+    <tr>
+        <th> Arrival Airport:</th>
+        <td>{{ flight['arrival_airport']}}</td>
+    </tr>
 
-<p>Scheduled departure = : {{ flight['scheduled_departure'] }}, Departure airport: {{ flight['departure_airport'] }}, Arrival Airport : {{ flight['arrival_airport'] }}  </p>
-
+</table>
 
 {% endblock %}

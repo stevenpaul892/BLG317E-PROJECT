@@ -1,6 +1,7 @@
 import sqlite3 as sql
 from datetime import datetime
 
+
 def parse_query_result(data):
     albums = []
     for row in data:
@@ -89,7 +90,7 @@ def get_flight_info_from_flight_id(flight_id):
                 temp[key] = row[key]
             flights.append(temp)
 
-        return flights[0] 
+        return flights[0]
 
 
 def flight_status_search(ticket_no):
