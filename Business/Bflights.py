@@ -5,10 +5,10 @@ from datetime import datetime
 def get_dates():
     with sql.connect("travel.db") as con:
         con.row_factory = sql.Row
-        cursor=con.cursor()
+        cursor = con.cursor()
         cursor.execute("PRAGMA foreign_keys = ON")
-        
-        query=f""" SELECT DISTINCT scheduled_departure FROM flights"""
+
+        query = f""" SELECT DISTINCT scheduled_departure FROM flights"""
 
         cursor.execute(query)
         data = cursor.fetchall()
@@ -20,9 +20,11 @@ def get_dates():
             for key in keys:
                 temp[key] = row[key]
             flights.append(temp)
-            
-        return flights 
-    
+
+        return flights
+
+
+import sqlite3 as sql
 
 
 def search_flights(From, Where, When):
@@ -30,9 +32,14 @@ def search_flights(From, Where, When):
         con.row_factory = sql.Row
         cursor = con.cursor()
         cursor.execute("PRAGMA foreign_keys = ON")
-        
-        query=f""" SELECT * FROM flights where departure_airport = '{From}' AND arrival_airport = '{Where}' """
 
+        # Construct the query with string formatting, which is not recommended due to the risk of SQL injection
+        query = f"""SELECT * FROM flights 
+                    WHERE departure_airport = '{From}' 
+                    AND arrival_airport = '{Where}' 
+                    AND scheduled_departure > '{When}'"""
+
+        # Execute the query
         cursor.execute(query)
         data = cursor.fetchall()
         flights = []
@@ -43,15 +50,18 @@ def search_flights(From, Where, When):
             for key in keys:
                 temp[key] = row[key]
             flights.append(temp)
+
+        print(flights)
         return flights
 
+
 def get_flight_info_from_flight_id(flight_id):
-     with sql.connect("travel.db") as con:
+    with sql.connect("travel.db") as con:
         con.row_factory = sql.Row
-        cursor=con.cursor()
+        cursor = con.cursor()
         cursor.execute("PRAGMA foreign_keys = ON")
-        
-        query=f""" SELECT * FROM flights where flight_id = '{flight_id}' """
+
+        query = f""" SELECT * FROM flights where flight_id = '{flight_id}' """
 
         cursor.execute(query)
         data = cursor.fetchall()
@@ -63,6 +73,5 @@ def get_flight_info_from_flight_id(flight_id):
             for key in keys:
                 temp[key] = row[key]
             flights.append(temp)
-            
-        return flights[0] #there will be only one match if there is one
 
+        return flights[0]  # there will be only one match if there is one
