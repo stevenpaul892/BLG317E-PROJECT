@@ -25,7 +25,7 @@ def get_dates():
     
 
 
-def search_flights(From, Where, Date):
+def search_flights(From, Where, When):
     with sql.connect("travel.db") as con:
         con.row_factory = sql.Row
         cursor = con.cursor()

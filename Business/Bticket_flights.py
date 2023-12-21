@@ -10,6 +10,7 @@ def search_ticket_price(flight_id):
 
         cursor.execute(query)
         data = cursor.fetchall()
+
         flights = []
 
         for row in data:

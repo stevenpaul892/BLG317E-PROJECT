@@ -45,8 +45,9 @@ def search_flight():
 def searched_flights():
     selected_From = request.form["dropdownFrom"]
     selected_Where = request.form["dropdownWhere"]
+    selected_When = request.form["dropdownWhen"]
 
-    searched_flights = Bflights.search_flights(selected_From, selected_Where, 10)
+    searched_flights = Bflights.search_flights(selected_From, selected_Where, selected_When)
 
     return render_template("searched_flights.html", flights=searched_flights)
 
@@ -54,6 +55,7 @@ def searched_flights():
 @app.route("/buy_ticket", methods=["POST"])
 def buy_ticket():
     selected_flight_id = request.form["flight_id"]
+
     return render_template("buy_ticket.html", flight_id=selected_flight_id)
 
 
