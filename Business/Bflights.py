@@ -1,6 +1,21 @@
 import sqlite3 as sql
 from datetime import datetime
 
+def parse_query_result(data):
+    albums = []
+    for row in data:
+        temp = {}
+        keys = row.keys()
+        print(data)
+        for key in keys:
+            if key == "model":
+                temp[key] = json.loads(row[key])["en"]
+            else:
+                temp[key] = row[key]
+        albums.append(temp)
+
+    return albums
+
 
 def get_dates():
     with sql.connect("travel.db") as con:
@@ -74,4 +89,21 @@ def get_flight_info_from_flight_id(flight_id):
                 temp[key] = row[key]
             flights.append(temp)
 
-        return flights[0]  # there will be only one match if there is one
+        return flights[0] 
+
+
+def flight_status_search(ticket_no):
+    with sql.connect("travel.db") as con:
+        con.row_factory = sql.Row
+        cursor = con.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON")
+
+        query = """
+            SELECT scheduled_departure, departure_airport, arrival_airport
+            FROM flights
+            JOIN ticket_flights ON ticket_flights.flight_id = flights.flight_id
+            WHERE ticket_flights.ticket_no = ?
+        """
+
+        cursor.execute(query, (ticket_no,))
+        return parse_query_result(cursor.fetchall())[0]

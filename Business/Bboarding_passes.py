@@ -1,8 +1,37 @@
 import sqlite3 as sql
 import json
 
+def parse_query_result(data):
+    albums = []
+    for row in data:
+        temp = {}
+        keys = row.keys()
+        print(data)
+        for key in keys:
+            if key == "model":
+                temp[key] = json.loads(row[key])["en"]
+            else:
+                temp[key] = row[key]
+        albums.append(temp)
+
+    return albums
+
 
 def check_checkin(ticket_no):
+    with sql.connect("travel.db") as con:
+        con.row_factory = sql.Row
+        cursor = con.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON")
+
+        query = """
+            SELECT seat_no
+            FROM boarding_passes
+            WHERE boarding_passes.ticket_no = ?
+        """
+        cursor.execute(query, (ticket_no,))
+        return parse_query_result(cursor.fetchall())[0]
+
+def boarding_pass_checkin(ticket_no):
     with sql.connect("travel.db") as con:
         con.row_factory = sql.Row
         cursor = con.cursor()
@@ -13,7 +42,7 @@ def check_checkin(ticket_no):
         cursor.execute(query)
         data = cursor.fetchall()
         cities = []
-        
+
         for row in data:
             temp = {}
             keys = row.keys()
@@ -25,6 +54,7 @@ def check_checkin(ticket_no):
         print(len(cities) != 0)
 
         return len(cities) != 0
+
 
 def insert_boardinpass(ticket_no, flight_id, boarding_no, seat_no):
      with sql.connect("travel.db") as con:

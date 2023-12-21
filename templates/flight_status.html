@@ -3,9 +3,19 @@
 {% block content %}
 
 {% if aircraft and 'model' in aircraft %}
-<p>{{ aircraft['model'] }}</p>
+<p>Aircraft Model: {{ aircraft['model'] }}  </p>
 {% else %}
 <p class="noFlight">No flight found</p>
 {% endif %}
+
+{% if checkin and'seat_no' in checkin %}
+<p>Seat number: {{ checkin['seat_no'] }}  </p>
+{% else %}
+<p class="noFlight">NOT CHECKED IN YET</p>
+{% endif %}
+
+
+<p>Scheduled departure = : {{ flight['scheduled_departure'] }}, Departure airport: {{ flight['departure_airport'] }}, Arrival Airport : {{ flight['arrival_airport'] }}  </p>
+
 
 {% endblock %}

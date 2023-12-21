@@ -98,7 +98,7 @@ def boarding_pass():
     ID = request.form["passenger_id"]
 
     if Btickets.check_ticket_existence(ticket_no, ID):
-        if Bboarding_passes.check_checkin(ticket_no):
+        if Bboarding_passes.boarding_pass_checkin(ticket_no):
             return redirect("/show_boarding_pass_error")
 
         seat = Bseats.get_empty_seat(ticket_no)
@@ -119,8 +119,8 @@ def boarding_pass():
 def show_boarding_pass():
     ticketNo = request.form["ticket_no"]
     flightNo = request.form["flight_no"]
-    boardinPass = Bboarding_passes.check_checkin(ticketNo, flightNo)
-    print(boardinPass)
+    boardinPass = Bboarding_passes.boarding_pass_checkin(ticketNo, flightNo)
+
     return render_template("show_boarding_pass.html", passInfo=boardinPass)
 
 
@@ -141,8 +141,10 @@ def check_flight_status():
 def flight_status():
     ticket_no = request.form["ticket_no"]
     selected_aircraft = Baircrafts_data.flight_status_search(ticket_no)
-    print(selected_aircraft)
-    return render_template("flight_status.html", aircraft=selected_aircraft)
+    selected_flight = Bflights.flight_status_search(ticket_no)
+    checkin_status = Bboarding_passes.check_checkin(ticket_no)
+
+    return render_template("flight_status.html", aircraft=selected_aircraft, flight = selected_flight, checkin = checkin_status)
 
 
 @app.route("/flight_cancel")

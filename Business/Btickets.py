@@ -8,7 +8,7 @@ def flight_status_search():
         cursor = con.cursor()
         cursor.execute("PRAGMA foreign_keys = ON")
 
-        query = f""" SELECT * FROM tickets WHERE ticket_no = '0005432159776'"""
+        query = f""" SELECT * FROM tickets LIMIT 5"""
 
         cursor.execute(query)
 
