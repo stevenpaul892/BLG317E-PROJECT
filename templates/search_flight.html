@@ -21,9 +21,9 @@
         </select>
     </div>
     <div class="form-group">
-        <select name="dropdownDates">
+        <select name="dropdownWhen">
             {% for option in optionsDates %}
-                <option value="{{ option }}">{{ option }}</option>
+                <option value="{{ option['scheduled_departure'] }}">{{ option['scheduled_departure'] }}</option>
             {% endfor %}
         </select>
     </div>

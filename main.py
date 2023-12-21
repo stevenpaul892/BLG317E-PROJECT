@@ -26,9 +26,9 @@ def index():
 @app.route("/search_flight")
 def search_flight():
     cities = Bairports_data.get_cities()
-    print(cities)
+    dates = Bflights.get_dates()
     return render_template(
-        "search_flight.html", optionsFrom=cities, optionsWhere=cities, optionsDates=[]
+        "search_flight.html", optionsFrom=cities, optionsWhere=cities, optionsDates=dates
     )
 
 
@@ -36,8 +36,14 @@ def search_flight():
 def searched_flights():
     selected_From = request.form["dropdownFrom"]
     selected_Where = request.form["dropdownWhere"]
+    selected_When = request.form["dropdownWhen"]
 
-    searched_flights = Bflights.search_flights(selected_From, selected_Where, 10)
+    searched_flights = Bflights.search_flights(selected_From, selected_Where, selected_When)
+
+    for flight in searched_flights:
+        price = Bticket_flights.search_ticket_price(flight['flight_id'])
+        flight['price'] = price
+
 
     return render_template("searched_flights.html", flights=searched_flights)
 

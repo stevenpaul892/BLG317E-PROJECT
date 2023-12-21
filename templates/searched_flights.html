@@ -5,7 +5,7 @@
 <form action="/buy_ticket" class="search-form" method="post">
     <div class="form-group">
         {% for flight in flights %}
-        <p>{{ flight[4] }} {{ flight[5] }} {{ flight[2] }} {{ flight[3] }}</p> <input type="submit" text="BUY" name="flight_id" value="{{ flight[0] }}"/>
+        <p> From {{ flight['departure_airport'] }} airport to {{ flight['arrival_airport'] }} airport departuring on {{ flight['scheduled_departure'] }} for {{ flight['price']}} </p> <input type="submit" text="BUY" name="flight_id" value="{{ flight['flight_id'] }}"/>
         {% endfor %}
     </div>
 </form>
