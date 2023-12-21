@@ -2,7 +2,5 @@
 {% extends 'master_page.html' %}
 
 {% block content %}
-    {% for seat in seats %}
-        <p>{{ seat }}</p>
-    {% endfor %}
+    <p>{{ seat }} {{ flight }}</p>
 {% endblock%}

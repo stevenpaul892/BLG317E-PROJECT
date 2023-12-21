@@ -4,15 +4,15 @@
 
 {% block content %}
 <h2>Enter your flight number to check in.</h2>
-<form class="search-form" action="/show_boarding_pass" method="post">
+<form class="search-form" action="/boarding_pass" method="post">
     <div class="form-group">
         <label for="from">Ticket Number</label>
         <input type="text" id="ticket_no" name="ticket_no" placeholder="0005432660784" >
     </div>
 
     <div class="form-group">
-        <label for="from">Flight Number</label>
-        <input type="text" id="flight_no" name="flight_no" placeholder="5984" >
+        <label for="from">ID Number</label>
+        <input type="text" id="passenger_id" name="passenger_id" placeholder="Your ID Number" >
     </div>
    
     <div class="groupOne">

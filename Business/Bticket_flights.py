@@ -28,7 +28,7 @@ def get_flight_from_ticket(ticket_no):
         cursor=con.cursor()
         cursor.execute("PRAGMA foreign_keys = ON")
         
-        query=f""" SELECT flight_id FROM ticket_flights where ticket_no = '{ticket_no}' """
+        query=f""" SELECT * FROM ticket_flights where ticket_no = '{ticket_no}' """
 
         cursor.execute(query)
         data = cursor.fetchall()
@@ -41,4 +41,4 @@ def get_flight_from_ticket(ticket_no):
                 temp[key] = row[key]
             flights.append(temp)
             
-        return flights[0] # only one flight show up if there is one
+        return flights # only one flight show up if there is one

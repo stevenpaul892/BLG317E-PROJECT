@@ -5,6 +5,8 @@ import sqlite3 as sql
 from flask import Flask, render_template, request, redirect
 import sys
 
+import random
+
 sys.path.append("../")
 from Business import (
     Baircrafts_data,
@@ -77,10 +79,28 @@ def check_in():
     return render_template("check_in.html")
 
 
-@app.route("/boarding_pass")
+@app.route("/boarding_pass", methods=['POST'])
 def boarding_pass():
-    selected_seats = Bseats.Search()
-    return render_template("boarding_pass.html", seats=selected_seats)
+    ticket_no = request.form["ticket_no"]
+    ID = request.form["passenger_id"]
+
+    if Btickets.check_ticket_existence(ticket_no, ID):
+
+        if Bboarding_passes.check_checkin(ticket_no):
+            return redirect("/show_boarding_pass_error")
+
+        seat = Bseats.get_empty_seat(ticket_no)
+        flight_id = Bticket_flights.get_flight_from_ticket(ticket_no)[0]['flight_id']
+        flight = Bflights.get_flight_info_from_flight_id(flight_id)
+
+        if Bboarding_passes.insert_boardinpass(ticket_no, flight_id, random.randint(1,8), seat):
+            return render_template("boarding_pass.html", flight=flight, seat=seat)
+        else:
+            redirect("/show_boarding_pass_error") 
+    else:
+        return redirect("/show_boarding_pass_error")    
+
+    
 
 
 @app.route("/show_boarding_pass", methods=["POST"])
