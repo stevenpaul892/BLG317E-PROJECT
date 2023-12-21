@@ -1,6 +1,63 @@
-<!-- This is just for testing the seatlist -->
 {% extends 'master_page.html' %}
 
 {% block content %}
-    <p>{{ seat }} {{ flight }}</p>
-{% endblock%}
+<div class="container mt-3">
+    <div class="card">
+
+        <div class="card-body">
+            <p class="card-text">Flight Information</p>
+            <table class="table">
+                <tr>
+                    <th>Seat</th>
+                    <td> {{ seat }}</td>
+                </tr>
+                <tr>
+                    <th>Flight ID:</th>
+                    <td>{{ flight.flight_id }}</td>
+                </tr>
+                <tr>
+                    <th>Flight Number:</th>
+                    <td>{{ flight.flight_no }}</td>
+                </tr>
+                <tr>
+                    <th>Scheduled Departure:</th>
+                    <td>{{ flight.scheduled_departure }}</td>
+                </tr>
+                <tr>
+                    <th>Scheduled Arrival:</th>
+                    <td>{{ flight.scheduled_arrival }}</td>
+                </tr>
+                <tr>
+                    <th>Departure Airport:</th>
+                    <td>{{ flight.departure_airport }}</td>
+                </tr>
+                <tr>
+                    <th>Arrival Airport:</th>
+                    <td>{{ flight.arrival_airport }}</td>
+                </tr>
+                <tr>
+                    <th>Status:</th>
+                    <td>{{ flight.status }}</td>
+                </tr>
+                <tr>
+                    <th>Aircraft Code:</th>
+                    <td>{{ flight.aircraft_code }}</td>
+                </tr>
+                <!-- Check if actual departure and arrival are provided -->
+                {% if flight.actual_departure != '\\N' %}
+                <tr>
+                    <th>Actual Departure:</th>
+                    <td>{{ flight.actual_departure }}</td>
+                </tr>
+                {% endif %}
+                {% if flight.actual_arrival != '\\N' %}
+                <tr>
+                    <th>Actual Arrival:</th>
+                    <td>{{ flight.actual_arrival }}</td>
+                </tr>
+                {% endif %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

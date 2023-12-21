@@ -144,7 +144,12 @@ def flight_status():
     selected_flight = Bflights.flight_status_search(ticket_no)
     checkin_status = Bboarding_passes.check_checkin(ticket_no)
 
-    return render_template("flight_status.html", aircraft=selected_aircraft, flight = selected_flight, checkin = checkin_status)
+    return render_template(
+        "flight_status.html",
+        aircraft=selected_aircraft,
+        flight=selected_flight,
+        checkin=checkin_status,
+    )
 
 
 @app.route("/flight_cancel")

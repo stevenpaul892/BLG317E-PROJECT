@@ -191,6 +191,13 @@ nav a {
     border-radius: 8px;
     padding: 4px;
 }
+.ticketBackground{
+    background-color: #DFDDA3;
+    width: 50%;
+    margin: auto;
+    padding: 10px 3px;
+    border-radius: 8px;
+}
 .flightInfo input{
     background-color: rgba(27,116,127,0.95    );
     border-radius: 8px;
@@ -210,6 +217,17 @@ label{
 }
 .groupOne{
    height: 4.5rem;
+}
+.flightInfo button{
+    background-color: #1C707B;
+    border-radius: 8px;
+    padding: 8px;
+    font-weight: bold;
+    color:#f0f0f0;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+
 }
 .noFlight{
     font-size: 32px;
@@ -241,4 +259,23 @@ label{
     gap: 0.3rem;
     justify-content: center;
     align-items: center;
+}
+#bold{
+    font-weight: bold;
+}
+.table{
+    text-align: left;
+    border-collapse: collapse;
+    margin: 0 auto;
+    width: 30%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #263A4C; /* A darker shade of the text color for a subtle shadow effect */
+}
+.card-text{
+    font-weight: bold;
+    color:#DFDDA3;
+
+    font-size: 1.2rem;
 }
