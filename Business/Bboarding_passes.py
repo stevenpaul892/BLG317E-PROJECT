@@ -14,7 +14,9 @@ def parse_query_result(data):
                 temp[key] = row[key]
         albums.append(temp)
 
-    return albums
+    if albums == []:
+        return None
+    return albums[0]
 
 
 def check_checkin(ticket_no):
@@ -29,7 +31,7 @@ def check_checkin(ticket_no):
             WHERE boarding_passes.ticket_no = ?
         """
         cursor.execute(query, (ticket_no,))
-        return parse_query_result(cursor.fetchall())[0]
+        return parse_query_result(cursor.fetchall())
 
 def boarding_pass_checkin(ticket_no):
     with sql.connect("travel.db") as con:
