@@ -90,7 +90,9 @@ nav a {
     font-size: 1rem;
    border-radius: 8px;
    width: 25%;
-
+}
+.checkIn{
+    padding: 4px;
 }
 
 
@@ -187,6 +189,7 @@ nav a {
 .flightInfo{
     background-color: #DFDDA3;
     border-radius: 8px;
+    padding: 4px;
 }
 .flightInfo input{
     background-color: rgba(27,116,127,0.95    );

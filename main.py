@@ -79,9 +79,13 @@ def boarding_pass():
     return render_template("boarding_pass.html", seats=selected_seats)
 
 
-@app.route("/show_boarding_pass")
+@app.route("/show_boarding_pass", methods=["POST"])
 def show_boarding_pass():
-    return render_template("show_boarding_pass.html")
+    ticketNo = request.form["ticket_no"]
+    flightNo = request.form["flight_no"]
+    boardinPass = Bboarding_passes.check_checkin(ticketNo, flightNo)
+    print(boardinPass)
+    return render_template("show_boarding_pass.html", passInfo=boardinPass)
 
 
 @app.route("/show_boarding_pass_error")
