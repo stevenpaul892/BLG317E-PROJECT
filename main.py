@@ -6,7 +6,16 @@ from flask import Flask, render_template, request, redirect
 import sys
 
 sys.path.append("../")
-from Business import Baircrafts_data, Bairports_data, Bboarding_passes, Bbooking, Bflights, Bseats, Bticket_flights, Btickets
+from Business import (
+    Baircrafts_data,
+    Bairports_data,
+    Bboarding_passes,
+    Bbooking,
+    Bflights,
+    Bseats,
+    Bticket_flights,
+    Btickets,
+)
 
 
 # Flask constructor takes the name of
@@ -36,9 +45,7 @@ def search_flight():
 def searched_flights():
     selected_From = request.form["dropdownFrom"]
     selected_Where = request.form["dropdownWhere"]
-
     searched_flights = Bflights.search_flights(selected_From, selected_Where, 10)
-
     return render_template("searched_flights.html", flights=searched_flights)
 
 
@@ -89,7 +96,8 @@ def show_boarding_pass_error():
 def check_flight_status():
     return render_template("check_flight_status.html")
 
-@app.route("/flight_status", methods=['POST'])
+
+@app.route("/flight_status", methods=["POST"])
 def flight_status():
     ticket_no = request.form["ticket_no"]
 

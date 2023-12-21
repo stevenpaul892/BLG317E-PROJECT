@@ -1,13 +1,21 @@
 {% extends 'master_page.html' %}
 
-
 {% block content %}
 <form action="/buy_ticket" class="search-form" method="post">
-    <div class="form-group">
+    <div class="flight-group">
         {% for flight in flights %}
-        <p>{{ flight[4] }} {{ flight[5] }} {{ flight[2] }} {{ flight[3] }}</p> <input type="submit" text="BUY" name="flight_id" value="{{ flight[0] }}"/>
+         <div class="flightInfo">
+            <p>Flight ID: {{ flight.flight_id }}</p>
+            <p>Flight No: {{ flight.flight_no }}</p>
+            <p>Departure: {{ flight.scheduled_departure }}</p>
+            <p>Arrival: {{ flight.scheduled_arrival }}</p>
+            <p>Departure Airport: {{ flight.departure_airport }}</p>
+            <p>Arrival Airport: {{ flight.arrival_airport }}</p>
+            <p>Status: {{ flight.status }}</p>
+            <input type="submit" name="flight_id" value="Buy Ticket" />
+            <br><br>
+         </div>
         {% endfor %}
     </div>
 </form>
-{% endblock%}
-
+{% endblock %}
