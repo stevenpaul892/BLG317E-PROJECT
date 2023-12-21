@@ -21,3 +21,24 @@ def search_ticket_price(flight_id):
             flights.append(temp)
             
         return flights 
+
+def get_flight_from_ticket(ticket_no):
+     with sql.connect("travel.db") as con:
+        con.row_factory = sql.Row
+        cursor=con.cursor()
+        cursor.execute("PRAGMA foreign_keys = ON")
+        
+        query=f""" SELECT flight_id FROM ticket_flights where ticket_no = '{ticket_no}' """
+
+        cursor.execute(query)
+        data = cursor.fetchall()
+        flights = []
+
+        for row in data:
+            temp = {}
+            keys = row.keys()
+            for key in keys:
+                temp[key] = row[key]
+            flights.append(temp)
+            
+        return flights[0] # only one flight show up if there is one
