@@ -33,8 +33,7 @@ def flight_status_search(ticket_no):
         query += f""" flights.aircraft_code = aircrafts_data.aircraft_code """
 
         cursor.execute(query)
-        if cursor.fetchall() == []:
-            return None
+
         return parse_query_result(cursor.fetchall())[
             0
         ]  # there will be only one element if there is one

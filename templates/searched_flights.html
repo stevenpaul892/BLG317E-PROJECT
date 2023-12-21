@@ -13,8 +13,8 @@
                 <p>Departure Airport: {{ flight.departure_airport }}</p>
                 <p>Arrival Airport: {{ flight.arrival_airport }}</p>
                 <p>Status: {{ flight.status }}</p>
-                
-                <input type="submit" name="flight_id" value="Buy This Flight" />
+                <input type="hidden" name="flight_id" value="{{flight.flight_id}}" />
+                <button type="submit">Buy This Ticket</button>
                 <br><br>
              </div>
             {% endfor %}

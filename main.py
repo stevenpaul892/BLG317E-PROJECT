@@ -39,7 +39,10 @@ def search_flight():
     cities = Bairports_data.get_cities()
     dates = Bflights.get_dates()
     return render_template(
-        "search_flight.html", optionsFrom=cities, optionsWhere=cities, optionsDates=dates
+        "search_flight.html",
+        optionsFrom=cities,
+        optionsWhere=cities,
+        optionsDates=dates,
     )
 
 
@@ -49,7 +52,9 @@ def searched_flights():
     selected_Where = request.form["dropdownWhere"]
     selected_When = request.form["dropdownWhen"]
 
-    searched_flights = Bflights.search_flights(selected_From, selected_Where, selected_When)
+    searched_flights = Bflights.search_flights(
+        selected_From, selected_Where, selected_When
+    )
 
     return render_template("searched_flights.html", flights=searched_flights)
 
@@ -63,7 +68,15 @@ def buy_ticket():
 
 @app.route("/show_ticket", methods=["POST"])
 def show_ticket():
-    return render_template("show_ticket.html")
+    flight_id = request.form["flight_id"]
+    name = request.form["name_surname"]
+    id = request.form["ID_number"]
+    ticketNo, id_num = Bbooking.buy_ticket(flight_id, name, id, "ECO", 1)
+    print(flight_id)
+
+    return render_template(
+        "show_ticket.html", flight_id=flight_id, ticketNo=ticketNo, id_num=id_num
+    )
 
 
 @app.route("/show_ticket_error", methods=["GET"])
@@ -79,28 +92,27 @@ def check_in():
     return render_template("check_in.html")
 
 
-@app.route("/boarding_pass", methods=['POST'])
+@app.route("/boarding_pass", methods=["POST"])
 def boarding_pass():
     ticket_no = request.form["ticket_no"]
     ID = request.form["passenger_id"]
 
     if Btickets.check_ticket_existence(ticket_no, ID):
-
         if Bboarding_passes.check_checkin(ticket_no):
             return redirect("/show_boarding_pass_error")
 
         seat = Bseats.get_empty_seat(ticket_no)
-        flight_id = Bticket_flights.get_flight_from_ticket(ticket_no)[0]['flight_id']
+        flight_id = Bticket_flights.get_flight_from_ticket(ticket_no)[0]["flight_id"]
         flight = Bflights.get_flight_info_from_flight_id(flight_id)
 
-        if Bboarding_passes.insert_boardinpass(ticket_no, flight_id, random.randint(1,8), seat):
+        if Bboarding_passes.insert_boardinpass(
+            ticket_no, flight_id, random.randint(1, 8), seat
+        ):
             return render_template("boarding_pass.html", flight=flight, seat=seat)
         else:
-            redirect("/show_boarding_pass_error") 
+            redirect("/show_boarding_pass_error")
     else:
-        return redirect("/show_boarding_pass_error")    
-
-    
+        return redirect("/show_boarding_pass_error")
 
 
 @app.route("/show_boarding_pass", methods=["POST"])
