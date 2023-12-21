@@ -157,6 +157,18 @@ def flight_cancel():
     return render_template("flight_cancel.html")
 
 
+
+@app.route("/check_ticket_number")
+def check_ticket_number():
+    return render_template("check_ticket_number.html")
+
+@app.route("/manage_tickets", methods=["POST"])
+def manage_tickets():
+    ticket_no = request.form["ticket_no"]
+    if_checked_in = Bboarding_passes.boarding_pass_checkin(ticket_no)
+    fare_condition = Bticket_flights.get_fare_conditions(ticket_no)[0]['fare_conditions']
+    return render_template("manage_tickets.html", if_checked_in = if_checked_in, fare_condition = fare_condition)
+
 @app.route("/flight_cancel_error")
 def flight_cancel_error():
     return render_template("flight_cancel_error.html")

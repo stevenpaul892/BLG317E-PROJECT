@@ -1,0 +1,18 @@
+{% extends 'master_page.html' %}
+
+{% block content %}
+
+{% if fare_condition == "Business" %}
+<p>You can change your ticket to Economy class. </p>
+{% else %}
+<p> You can upgrade your ticket to Business ! </p>
+{% endif %}
+
+
+{% if if_checked_in %}
+<p>You have checked-in, you cannot cancel your flight. </p>
+{% else %}
+<p> Cancel your flight </p>
+{% endif %}
+
+{% endblock%}

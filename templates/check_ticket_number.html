@@ -1,0 +1,16 @@
+{% extends 'master_page.html' %}
+
+
+{% block content %}
+<h2>Enter Your Ticket Number to Manage Your Flight.</h2>
+<form action="/manage_tickets" class="search-form" method="post">
+    <div class="form-group">
+        <label for="from">Ticket Number</label>
+        <input type="text" id="ticket_no" name="ticket_no" >
+    </div>
+   
+    <div class="groupOne">
+        <button type="submit" class="submitButton">Check Status</button>
+    </div>
+</form>
+{% endblock%}
