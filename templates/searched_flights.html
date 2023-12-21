@@ -3,19 +3,23 @@
 {% block content %}
 <form action="/buy_ticket" class="search-form" method="post">
     <div class="flight-group">
-        {% for flight in flights %}
-         <div class="flightInfo">
-            <p>Flight ID: {{ flight.flight_id }}</p>
-            <p>Flight No: {{ flight.flight_no }}</p>
-            <p>Departure: {{ flight.scheduled_departure }}</p>
-            <p>Arrival: {{ flight.scheduled_arrival }}</p>
-            <p>Departure Airport: {{ flight.departure_airport }}</p>
-            <p>Arrival Airport: {{ flight.arrival_airport }}</p>
-            <p>Status: {{ flight.status }}</p>
-            <input type="submit" name="flight_id" value="Buy Ticket" />
-            <br><br>
-         </div>
-        {% endfor %}
+        {% if flights %}
+            {% for flight in flights %}
+             <div class="flightInfo">
+                <p>Flight ID: {{ flight.flight_id }}</p>
+                <p>Flight No: {{ flight.flight_no }}</p>
+                <p>Departure: {{ flight.scheduled_departure }}</p>
+                <p>Arrival: {{ flight.scheduled_arrival }}</p>
+                <p>Departure Airport: {{ flight.departure_airport }}</p>
+                <p>Arrival Airport: {{ flight.arrival_airport }}</p>
+                <p>Status: {{ flight.status }}</p>
+                <input type="submit" name="flight_id" value="Buy Ticket" />
+                <br><br>
+             </div>
+            {% endfor %}
+        {% else %}
+            <p class="noFlight">No Flight Found</p>
+        {% endif %}
     </div>
 </form>
 {% endblock %}

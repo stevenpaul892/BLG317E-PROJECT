@@ -104,9 +104,7 @@ def check_flight_status():
 @app.route("/flight_status", methods=["POST"])
 def flight_status():
     ticket_no = request.form["ticket_no"]
-
     selected_aircraft = Baircrafts_data.flight_status_search(ticket_no)
-    print(ticket_no)
     print(selected_aircraft)
     return render_template("flight_status.html", aircraft=selected_aircraft)
 

@@ -211,6 +211,11 @@ label{
 .groupOne{
    height: 4.5rem;
 }
+.noFlight{
+    font-size: 32px;
+    font-weight: bold;
+    color: #252525;
+}
 .submitButton{
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
     font-weight: bold;
