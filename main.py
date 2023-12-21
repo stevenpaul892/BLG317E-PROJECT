@@ -6,7 +6,16 @@ from flask import Flask, render_template, request, redirect
 import sys
 
 sys.path.append("../")
-from Business import Baircrafts_data, Bairports_data, Bboarding_passes, Bbooking, Bflights, Bseats, Bticket_flights, Btickets
+from Business import (
+    Baircrafts_data,
+    Bairports_data,
+    Bboarding_passes,
+    Bbooking,
+    Bflights,
+    Bseats,
+    Bticket_flights,
+    Btickets,
+)
 
 
 # Flask constructor takes the name of
@@ -36,14 +45,8 @@ def search_flight():
 def searched_flights():
     selected_From = request.form["dropdownFrom"]
     selected_Where = request.form["dropdownWhere"]
-    selected_When = request.form["dropdownWhen"]
 
-    searched_flights = Bflights.search_flights(selected_From, selected_Where, selected_When)
-
-    for flight in searched_flights:
-        price = Bticket_flights.search_ticket_price(flight['flight_id'])
-        flight['price'] = price
-
+    searched_flights = Bflights.search_flights(selected_From, selected_Where, 10)
 
     return render_template("searched_flights.html", flights=searched_flights)
 
@@ -78,9 +81,13 @@ def boarding_pass():
     return render_template("boarding_pass.html", seats=selected_seats)
 
 
-@app.route("/show_boarding_pass")
+@app.route("/show_boarding_pass", methods=["POST"])
 def show_boarding_pass():
-    return render_template("show_boarding_pass.html")
+    ticketNo = request.form["ticket_no"]
+    flightNo = request.form["flight_no"]
+    boardinPass = Bboarding_passes.check_checkin(ticketNo, flightNo)
+    print(boardinPass)
+    return render_template("show_boarding_pass.html", passInfo=boardinPass)
 
 
 @app.route("/show_boarding_pass_error")
@@ -95,12 +102,11 @@ def show_boarding_pass_error():
 def check_flight_status():
     return render_template("check_flight_status.html")
 
-@app.route("/flight_status", methods=['POST'])
+
+@app.route("/flight_status", methods=["POST"])
 def flight_status():
     ticket_no = request.form["ticket_no"]
-
     selected_aircraft = Baircrafts_data.flight_status_search(ticket_no)
-    print(ticket_no)
     print(selected_aircraft)
     return render_template("flight_status.html", aircraft=selected_aircraft)
 

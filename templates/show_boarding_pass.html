@@ -1,0 +1,17 @@
+{% extends 'master_page.html' %}
+
+{% block content %}
+<form action="/buy_ticket" class="search-form" method="post">
+    <div class="checkIn">
+        {% for flight in passInfo %}
+         <div class="flightInfo">
+            <p>Flight ID: {{ flight.flight_id }}</p>
+            <p>Ticket No: {{ flight.ticket_no }}</p>
+            <p>Boarding No: {{ flight.boarding_no }}</p>
+            <p>Seat No: {{ flight.seat_no }}</p>
+            <br><br>
+         </div>
+        {% endfor %}
+    </div>
+</form>
+{% endblock %}

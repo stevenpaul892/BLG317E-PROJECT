@@ -61,6 +61,39 @@ nav a {
     margin: 0 auto;
 }
 
+.payment-form-container input   {
+    background: #DFDDA3; /* Same as the nav buttons for consistency */
+    color: #263A4C; /* Text color */
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px;
+}
+
+.paymentContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 8px;
+
+}
+.payment-form-container button {
+    margin-top: 5px;
+    background: #DFDDA3; /* Same as the nav buttons for consistency */
+    color: #263A4C; /* Text color */
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+   border-radius: 8px;
+   width: 25%;
+}
+.checkIn{
+    padding: 4px;
+}
 
 
 .search-form input {
@@ -106,6 +139,18 @@ nav a {
     justify-content: end;
     
 }
+.paymentForm{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    height: 4rem;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #263A4C; 
+}   
 
 .form-group{
     display: flex;
@@ -117,6 +162,40 @@ nav a {
     border-radius: 8px;
     box-shadow: 0 0 5px #263A4C; /* A darker shade of the text color for a subtle shadow effect */
 
+}
+.form-group select{
+    background: #DFDDA3; /* Same as the nav buttons for consistency */
+
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #263A4C; /* A darker shade of the text color for a subtle shadow effect */
+
+
+}
+.flight-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Create 4 columns per row */
+    justify-content: center;
+    align-items: left;
+    gap: 10px; /* Add gap between grid items */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px #263A4C; /* A darker shade of the text color for a subtle shadow effect */
+}
+.flightInfo{
+    background-color: #DFDDA3;
+    border-radius: 8px;
+    padding: 4px;
+}
+.flightInfo input{
+    background-color: rgba(27,116,127,0.95    );
+    border-radius: 8px;
+    color: #f0f0f0;
+    font-weight: bold;
 }
 
 header{
@@ -131,6 +210,11 @@ label{
 }
 .groupOne{
    height: 4.5rem;
+}
+.noFlight{
+    font-size: 32px;
+    font-weight: bold;
+    color: #252525;
 }
 .submitButton{
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
