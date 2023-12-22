@@ -7,7 +7,7 @@ def parse_query_result(data):
     for row in data:
         temp = {}
         keys = row.keys()
-        print(data)
+
         for key in keys:
             if key == "model":
                 temp[key] = json.loads(row[key])["en"]
@@ -67,7 +67,6 @@ def search_flights(From, Where, When):
                 temp[key] = row[key]
             flights.append(temp)
 
-        print(flights)
         return flights
 
 

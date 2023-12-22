@@ -53,5 +53,3 @@ def check_ticket_existence(ticket_no, ID):
             albums.append(temp)
 
         return len(albums) == 1
-    
-print(flight_status_search())

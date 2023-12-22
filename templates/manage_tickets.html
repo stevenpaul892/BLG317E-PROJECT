@@ -1,18 +1,35 @@
+
 {% extends 'master_page.html' %}
+
+{% block head %}
+  {{ super() }}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='static/styles/styles.css') }}">
+{% endblock %}
 
 {% block content %}
 
 {% if fare_condition == "Business" %}
-<p>You can change your ticket to Economy class. </p>
+  <p>You can change your ticket to Economy class. </p>
+  <form method="post" action="{{ url_for('degrade_ticket') }}">
+    <button type="submit">Degrade Your Ticket to Economy</button>
+  </form>
 {% else %}
-<p> You can upgrade your ticket to Business ! </p>
+  <p>You can upgrade your ticket to Business! </p>
+  <form method="post" action="{{ url_for('upgrade_ticket') }}">
+    <button type="submit">Upgrade Your Ticket to Business</button>
+  </form>
 {% endif %}
-
 
 {% if if_checked_in %}
-<p>You have checked-in, you cannot cancel your flight. </p>
+  <p>You cannot cancel your flight since you have checked in already.</p>
+  <form method="get" action="{{ url_for('search_flight') }}">
+    <button type="submit">Main Page</button>
+  </form>
 {% else %}
-<p> Cancel your flight </p>
+  <p>If you haven't checked in yet, you can cancel your flight.</p>
+  <form method="get" action="{{ url_for('cancel_flight') }}">
+    <button type="submit">Cancel Your Flight</button>
+  </form>
 {% endif %}
 
-{% endblock%}
+{% endblock %}

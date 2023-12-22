@@ -23,6 +23,7 @@ from Business import (
 # Flask constructor takes the name of
 # current module (__name__) as argument.
 app = Flask(__name__)
+app.static_folder = 'static'
 
 # The route() function of the Flask class is a decorator,
 # which tells the application which URL should call
@@ -72,7 +73,7 @@ def show_ticket():
     name = request.form["name_surname"]
     id = request.form["ID_number"]
     ticketNo, id_num = Bbooking.buy_ticket(flight_id, name, id, "ECO", 1)
-    print(flight_id)
+
 
     return render_template(
         "show_ticket.html", flight_id=flight_id, ticketNo=ticketNo, id_num=id_num
@@ -152,11 +153,6 @@ def flight_status():
     )
 
 
-@app.route("/flight_cancel")
-def flight_cancel():
-    return render_template("flight_cancel.html")
-
-
 
 @app.route("/check_ticket_number")
 def check_ticket_number():
@@ -173,6 +169,18 @@ def manage_tickets():
 def flight_cancel_error():
     return render_template("flight_cancel_error.html")
 
+@app.route('/degrade_ticket', methods=['POST'])
+def degrade_ticket():
+    return render_template('confirmation_page.html', message='Ticket degraded to Economy')
+
+@app.route('/upgrade_ticket', methods=['POST'])
+def upgrade_ticket():
+
+    return render_template('confirmation_page.html', message='Ticket upgraded to Business')
+
+@app.route('/cancel_flight', methods=['POST'])
+def cancel_flight():
+    return render_template('cancel_flight.html', message='Flight canceled')
 
 # main driver function
 if __name__ == "__main__":
