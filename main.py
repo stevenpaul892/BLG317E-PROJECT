@@ -171,12 +171,15 @@ def flight_cancel_error():
 
 @app.route('/degrade_ticket', methods=['POST'])
 def degrade_ticket():
-    return render_template('confirmation_page.html', message='Ticket degraded to Economy')
+    ticket_no = request.form["ticket_no"]
+    changed_fare_condition = Bticket_flights.change_fare_condition(ticket_no)
+    return render_template('upgrade_or_degrade.html', changed_fare_condition= changed_fare_condition,message='Ticket degraded to Economy')
 
 @app.route('/upgrade_ticket', methods=['POST'])
 def upgrade_ticket():
-
-    return render_template('confirmation_page.html', message='Ticket upgraded to Business')
+    ticket_no = request.form["ticket_no"]
+    changed_fare_condition = Bticket_flights.change_fare_condition(ticket_no)
+    return render_template('upgrade_or_degrade.html', changed_fare_condition= changed_fare_condition, message='Ticket upgraded to Business')
 
 @app.route('/cancel_flight', methods=['POST'])
 def cancel_flight():
