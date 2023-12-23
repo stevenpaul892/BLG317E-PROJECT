@@ -1,0 +1,11 @@
+{% extends 'master_page.html' %}
+
+
+
+{% block content %}
+<div class="errorContainer">
+    <h1>{{ error_message  }}</h1>
+    <p>{{ recommendation }}</p>
+    <a href="/" id="errorRedirect">Main Page</a>
+</div>
+{% endblock%}

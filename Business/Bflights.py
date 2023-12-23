@@ -1,5 +1,6 @@
 import sqlite3 as sql
-from datetime import datetime
+import datetime
+import json
 
 
 def parse_query_result(data):
@@ -48,12 +49,18 @@ def search_flights(From, Where, When):
         con.row_factory = sql.Row
         cursor = con.cursor()
         cursor.execute("PRAGMA foreign_keys = ON")
+        year, month, day = When.split('-')
+        When_offset = datetime.datetime(year=int(year), month=int(month), day=int(day))
+        When_offset += datetime.timedelta(hours=24)
 
         # Construct the query with string formatting, which is not recommended due to the risk of SQL injection
         query = f"""SELECT * FROM flights 
                     WHERE departure_airport = '{From}' 
                     AND arrival_airport = '{Where}' 
-                    AND scheduled_departure > '{When}'"""
+                    AND scheduled_departure > '{When}'
+                    AND scheduled_departure < '{When_offset}'
+                    AND status = 'Scheduled'
+                    ORDER BY scheduled_departure ASC"""
 
         # Execute the query
         cursor.execute(query)

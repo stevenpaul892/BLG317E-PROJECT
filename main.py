@@ -2,7 +2,7 @@
 # An object of Flask class is our WSGI application.
 import sqlite3 as sql
 
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import sys
 
 import random
@@ -51,7 +51,7 @@ def search_flight():
 def searched_flights():
     selected_From = request.form["dropdownFrom"]
     selected_Where = request.form["dropdownWhere"]
-    selected_When = request.form["dropdownWhen"]
+    selected_When = request.form["departureDate"]
 
     searched_flights = Bflights.search_flights(
         selected_From, selected_Where, selected_When
@@ -100,7 +100,9 @@ def boarding_pass():
 
     if Btickets.check_ticket_existence(ticket_no, ID):
         if Bboarding_passes.boarding_pass_checkin(ticket_no):
-            return redirect("/show_boarding_pass_error")
+            return redirect(url_for("error_page",
+                                     error_message="You are already checked in.",
+                                     recommendation="You can see your seat number in flight status page."))
 
         seat = Bseats.get_empty_seat(ticket_no)
         flight_id = Bticket_flights.get_flight_from_ticket(ticket_no)[0]["flight_id"]
@@ -111,9 +113,13 @@ def boarding_pass():
         ):
             return render_template("boarding_pass.html", flight=flight, seat=seat)
         else:
-            redirect("/show_boarding_pass_error")
+            return redirect(url_for("error_page",
+                                     error_message="Sorry, there was an error.",
+                                     recommendation="Please try to check in again."))
     else:
-        return redirect("/show_boarding_pass_error")
+        return redirect(url_for("error_page",
+                                 error_message="Sorry, we couldn't find your ticket.",
+                                 recommendation="Please check your ticket number and ID."))
 
 
 @app.route("/show_boarding_pass", methods=["POST"])
@@ -125,9 +131,9 @@ def show_boarding_pass():
     return render_template("show_boarding_pass.html", passInfo=boardinPass)
 
 
-@app.route("/show_boarding_pass_error")
-def show_boarding_pass_error():
-    return render_template("show_boarding_pass_error.html")
+@app.route("/error_page/<error_message>/<recommendation>")
+def error_page(error_message, recommendation):
+    return render_template("error_page.html", error_message=error_message, recommendation=recommendation)
 
 
 ###############################################################################################
@@ -152,8 +158,6 @@ def flight_status():
         checkin=checkin_status,
     )
 
-
-
 @app.route("/check_ticket_number")
 def check_ticket_number():
     return render_template("check_ticket_number.html")
@@ -161,9 +165,17 @@ def check_ticket_number():
 @app.route("/manage_tickets", methods=["POST"])
 def manage_tickets():
     ticket_no = request.form["ticket_no"]
-    if_checked_in = Bboarding_passes.boarding_pass_checkin(ticket_no)
-    fare_condition = Bticket_flights.get_fare_conditions(ticket_no)[0]['fare_conditions']
-    return render_template("manage_tickets.html", if_checked_in = if_checked_in, fare_condition = fare_condition)
+    ID = request.form["passenger_id"]
+
+    if Btickets.check_ticket_existence(ticket_no, ID):
+        if_checked_in = Bboarding_passes.boarding_pass_checkin(ticket_no)
+        fare_condition = Bticket_flights.get_fare_conditions(ticket_no)[0]['fare_conditions']
+        return render_template("manage_tickets.html", if_checked_in = if_checked_in, fare_condition = fare_condition)
+    else:
+        return redirect(url_for("error_page",
+                                 error_message="Sorry, we couldn't find your ticket.",
+                                 recommendation="Please check your ticket number and ID."))
+    
 
 @app.route("/flight_cancel_error")
 def flight_cancel_error():

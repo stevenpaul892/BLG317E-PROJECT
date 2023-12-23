@@ -7,25 +7,26 @@
 <h2>Where do you want to explore?</h2>
 <form action="/searched_flights" class="search-form" method="post">
     <div class="form-group">
+        <label for="dropdownFrom">From:</label>
         <select name="dropdownFrom">
+            <option value="" selected="selected">Choose</option>
             {% for option in optionsFrom %}
                 <option value="{{ option['airport_code'] }}">{{ option['city'] }}</option>
             {% endfor %}
         </select>
     </div>
     <div class="form-group">
+        <label for="dropdownWhere">Where:</label>
         <select name="dropdownWhere">
+            <option value="" selected="selected">Choose</option>
             {% for option in optionsWhere %}
                 <option value="{{ option['airport_code'] }}">{{ option['city'] }}</option>
             {% endfor %}
         </select>
     </div>
     <div class="form-group">
-        <select name="dropdownWhen">
-            {% for option in optionsDates %}
-                <option value="{{ option['scheduled_departure'] }}">{{ option['scheduled_departure'] }}</option>
-            {% endfor %}
-        </select>
+        <label for="departureDate">Departure Date:</label>
+        <input type="date" id="departureDate" name="departureDate" value="2017-08-17" min="2017-07-00" max="2017-10-00" />
     </div>
     <div class="form-group">
         <label for="passengers">Passengers</label>
