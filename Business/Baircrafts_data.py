@@ -33,4 +33,7 @@ def flight_status_search(ticket_no):
 
 
         cursor.execute(query)
-        return parse_query_result(cursor.fetchall())[0]
+        try:
+            return parse_query_result(cursor.fetchall())[0]
+        except:
+            return None

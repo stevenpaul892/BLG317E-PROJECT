@@ -13,10 +13,10 @@ def parse_query_result(data):
                 temp[key] = row[key]
         albums.append(temp)
 
-    if albums == []:
+    try:
+        return albums[0]
+    except:
         return None
-    return albums[0]
-
 
 def check_checkin(ticket_no):
     with sql.connect("travel.db") as con:

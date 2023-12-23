@@ -147,16 +147,23 @@ def check_flight_status():
 @app.route("/flight_status", methods=["POST"])
 def flight_status():
     ticket_no = request.form["ticket_no"]
-    selected_aircraft = Baircrafts_data.flight_status_search(ticket_no)
-    selected_flight = Bflights.flight_status_search(ticket_no)
-    checkin_status = Bboarding_passes.check_checkin(ticket_no)
 
-    return render_template(
-        "flight_status.html",
-        aircraft=selected_aircraft,
-        flight=selected_flight,
-        checkin=checkin_status,
-    )
+    if Btickets.check_ticket_existence_without_ID(ticket_no):
+        selected_aircraft = Baircrafts_data.flight_status_search(ticket_no)
+        selected_flight = Bflights.flight_status_search(ticket_no)
+        checkin_status = Bboarding_passes.check_checkin(ticket_no)
+
+        return render_template(
+            "flight_status.html",
+            aircraft=selected_aircraft,
+            flight=selected_flight,
+            checkin=checkin_status,
+        )
+    else:
+        return redirect(url_for("error_page",
+                                 error_message="Sorry, we couldn't find your ticket.",
+                                 recommendation="Please check your ticket number."))
+
 
 @app.route("/check_ticket_number")
 def check_ticket_number():
@@ -170,33 +177,41 @@ def manage_tickets():
     if Btickets.check_ticket_existence(ticket_no, ID):
         if_checked_in = Bboarding_passes.boarding_pass_checkin(ticket_no)
         fare_condition = Bticket_flights.get_fare_conditions(ticket_no)[0]['fare_conditions']
-        return render_template("manage_tickets.html", if_checked_in = if_checked_in, fare_condition = fare_condition)
+        return render_template("manage_tickets.html", if_checked_in = if_checked_in, fare_condition = fare_condition, h_ticket_no = ticket_no)
     else:
         return redirect(url_for("error_page",
                                  error_message="Sorry, we couldn't find your ticket.",
                                  recommendation="Please check your ticket number and ID."))
     
-
-@app.route("/flight_cancel_error")
-def flight_cancel_error():
-    return render_template("flight_cancel_error.html")
-
 @app.route('/degrade_ticket', methods=['POST'])
 def degrade_ticket():
     ticket_no = request.form["ticket_no"]
-    changed_fare_condition = Bticket_flights.change_fare_condition(ticket_no)
-    return render_template('upgrade_or_degrade.html', changed_fare_condition= changed_fare_condition,message='Ticket degraded to Economy')
+    if Bticket_flights.change_fare_condition(ticket_no):
+        return render_template('message_page.html', message='Your ticket has been downgraded from Business to Economy.')
+    else:
+        return redirect(url_for("error_page",
+                                 error_message="Sorry, there was an error while downgrading your ticket.",
+                                 recommendation="Please try again."))
 
 @app.route('/upgrade_ticket', methods=['POST'])
 def upgrade_ticket():
     ticket_no = request.form["ticket_no"]
-    changed_fare_condition = Bticket_flights.change_fare_condition(ticket_no)
-    return render_template('upgrade_or_degrade.html', changed_fare_condition= changed_fare_condition, message='Ticket upgraded to Business')
+    if Bticket_flights.change_fare_condition(ticket_no):
+        return render_template('message_page.html', message='Your ticket has been upgraded from Economy to Business.')
+    else:
+        return redirect(url_for("error_page",
+                                 error_message="Sorry, there was an error while upgrading your ticket.",
+                                 recommendation="Please try again."))
 
 @app.route('/cancel_flight', methods=['POST'])
 def cancel_flight():
-    return render_template('cancel_flight.html', message='Flight canceled')
-
+    ticket_no = request.form["ticket_no"]
+    if Btickets.cancel_ticket(ticket_no):
+        return render_template('message_page.html', message='Your ticket is successfully cancelled.')
+    else:
+        return redirect(url_for("error_page",
+                                 error_message="Sorry, there was an error while cancelling your ticket.",
+                                 recommendation="Please try again."))
 # main driver function
 if __name__ == "__main__":
     # run() method of Flask class runs the application
