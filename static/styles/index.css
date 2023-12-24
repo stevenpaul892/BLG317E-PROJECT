@@ -272,6 +272,7 @@ label{
     margin-bottom: 20px;
     border-radius: 8px;
     box-shadow: 0 0 5px #263A4C; /* A darker shade of the text color for a subtle shadow effect */
+    background-color: #DFDDA3;
 }
 .card-text{
     font-weight: bold;
@@ -304,4 +305,7 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+#marginBottom{
+    margin-bottom: 20px;
 }

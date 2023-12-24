@@ -32,7 +32,7 @@
     <p>You cannot cancel your flight since you have checked in already.</p>
   {% else %}
     <p>If you haven't checked in yet, you can cancel your flight.</p>
-    <form method="post" action="{{ url_for('cancel_flight') }}">
+    <form id="marginBottom" method="post" action="{{ url_for('cancel_flight') }}">
       <input type="hidden" name="ticket_no" value="{{h_ticket_no}}" />
       <button type="submit">Cancel Your Flight</button>
     </form>
